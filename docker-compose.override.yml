@@ -61,7 +61,11 @@ services:
   
     environment:
       - MONGO_URI=${MONGO_URI}
-
+  mongodb:
+    image: tianon/true
+    command: ''
+    entrypoint: ''
+    
 # # EXPOSE MONGODB PORTS - USE CAREFULLY, THIS MAKES YOUR DATABASE VULNERABLE TO ATTACKS
 #   mongodb:
 #     ports:
