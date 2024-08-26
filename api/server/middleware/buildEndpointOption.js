@@ -1,5 +1,6 @@
-const { parseConvo, EModelEndpoint } = require('librechat-data-provider');
+const { parseCompactConvo, EModelEndpoint } = require('librechat-data-provider');
 const { getModelsConfig } = require('~/server/controllers/ModelController');
+const azureAssistants = require('~/server/services/Endpoints/azureAssistants');
 const assistants = require('~/server/services/Endpoints/assistants');
 const gptPlugins = require('~/server/services/Endpoints/gptPlugins');
 const { processFiles } = require('~/server/services/Files/process');
@@ -18,11 +19,12 @@ const buildFunction = {
   [EModelEndpoint.anthropic]: anthropic.buildOptions,
   [EModelEndpoint.gptPlugins]: gptPlugins.buildOptions,
   [EModelEndpoint.assistants]: assistants.buildOptions,
+  [EModelEndpoint.azureAssistants]: azureAssistants.buildOptions,
 };
 
 async function buildEndpointOption(req, res, next) {
   const { endpoint, endpointType } = req.body;
-  const parsedBody = parseConvo({ endpoint, endpointType, conversation: req.body });
+  const parsedBody = parseCompactConvo({ endpoint, endpointType, conversation: req.body });
 
   if (req.app.locals.modelSpecs?.list && req.app.locals.modelSpecs?.enforce) {
     /** @type {{ list: TModelSpec[] }}*/

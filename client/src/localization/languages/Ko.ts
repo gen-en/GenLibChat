@@ -31,7 +31,6 @@ export default {
   com_ui_enter: 'Enter',
   com_ui_submit: '제출',
   com_ui_upload_success: '파일 업로드 성공',
-  com_ui_upload_invalid: '잘못된 파일입니다',
   com_ui_cancel: '취소',
   com_ui_save: '저장',
   com_ui_copy_to_clipboard: '클립보드에 복사',
@@ -50,15 +49,45 @@ export default {
   com_ui_import_conversation_error: '대화를 가져오는 동안 오류가 발생했습니다',
   com_ui_confirm_action: '작업 확인',
   com_ui_chats: '채팅',
+  com_ui_share: '공유하기',
+  com_ui_copy_link: '링크 복사',
+  com_ui_update_link: '링크 업데이트',
+  com_ui_create_link: '링크 만들기',
+  com_ui_share_link_to_chat: '채팅으로 링크 공유하기',
+  com_ui_share_error: '채팅 링크를 공유하는 동안 오류가 발생했습니다',
+  com_ui_share_retrieve_error: '공유 링크를 삭제하는 중에 오류가 발생했습니다.',
+  com_ui_share_delete_error: '공유 링크를 삭제하는 중에 오류가 발생했습니다.',
+  com_ui_share_create_message: '이름과 공유 후에 추가하는 메시지는 비공개로 유지됩니다.',
+  com_ui_share_created_message:
+    '귀하의 채팅에 대한 공유 링크가 생성되었습니다. 설정을 통해 언제든지 이전에 공유한 채팅을 관리할 수 있습니다.',
+  com_ui_share_update_message:
+    '이름, 사용자 지정 지침 및 공유 후 추가하는 메시지는 비공개로 유지됩니다.',
+  com_ui_share_updated_message:
+    '귀하의 채팅에 대한 공유 링크가 업데이트되었습니다. 설정을 통해 언제든지 이전에 공유한 채팅을 관리할 수 있습니다.',
+  com_ui_shared_link_not_found: '공유 링크를 찾을 수 없습니다',
   com_ui_delete: '삭제',
   com_ui_delete_conversation: '채팅을 삭제하시겠습니까?',
-  com_ui_delete_conversation_confirm: '이 채팅이 삭제됩니다',
+  com_ui_delete_confirm: '이 채팅이 삭제됩니다',
   com_ui_rename: '이름 바꾸기',
   com_ui_archive: '아카이브',
   com_ui_archive_error: '대화 아카이브 실패',
   com_ui_unarchive: '아카이브 해제',
   com_ui_unarchive_error: '대화 아카이브 해제 실패',
   com_ui_more_options: '더 보기',
+  com_ui_bookmarks: '북마크',
+  com_ui_bookmarks_rebuild: '재구축',
+  com_ui_bookmarks_new: '새 북마크',
+  com_ui_bookmark_delete_confirm: '이 북마크를 삭제하시겠습니까?',
+  com_ui_bookmarks_title: '제목',
+  com_ui_bookmarks_count: '개수',
+  com_ui_bookmarks_description: '설명',
+  com_ui_bookmarks_create_success: '북마크가 성공적으로 생성되었습니다',
+  com_ui_bookmarks_update_success: '북마크가 성공적으로 업데이트되었습니다',
+  com_ui_bookmarks_delete_success: '북마크가 성공적으로 삭제되었습니다',
+  com_ui_bookmarks_create_error: '북마크 생성 중 오류가 발생했습니다',
+  com_ui_bookmarks_update_error: '북마크 업데이트 중 오류가 발생했습니다',
+  com_ui_bookmarks_delete_error: '북마크 삭제 중 오류가 발생했습니다',
+  com_ui_bookmarks_add_to_conversation: '현재 대화에 추가',
   com_auth_error_login: '제공된 정보로 로그인할 수 없습니다. 자격 증명을 확인하고 다시 시도하세요.',
   com_auth_no_account: '계정이 없으신가요?',
   com_auth_sign_up: '가입하기',
@@ -234,10 +263,17 @@ export default {
   com_nav_export_recursive_or_sequential: '재귀적 또는 순차적?',
   com_nav_export_recursive: '재귀적',
   com_nav_export_conversation: '대화 내보내기',
+  com_nav_export: '내보내기',
+  com_nav_shared_links: '공유 링크',
+  com_nav_shared_links_manage: '관리',
+  com_nav_shared_links_empty: '공유 링크가 없습니다.',
+  com_nav_shared_links_name: '이름',
+  com_nav_shared_links_date_shared: '공유 날짜',
   com_nav_theme: '테마',
   com_nav_theme_system: '시스템',
   com_nav_theme_dark: '다크',
   com_nav_theme_light: '라이트',
+  com_nav_font_size: '글꼴 크기',
   com_nav_clear_all_chats: '모든 채팅 지우기',
   com_nav_confirm_clear: '지우기 확인',
   com_nav_close_sidebar: '사이드바 닫기',
@@ -258,9 +294,23 @@ export default {
   com_nav_help_faq: '도움말 및 FAQ',
   com_nav_settings: '설정',
   com_nav_search_placeholder: '메시지 검색',
+  com_nav_info_bookmarks_rebuild:
+    '북마크 수가 정확하지 않은 경우 북마크 정보를 재구축하십시오. 북마크 수가 다시 계산되고 데이터가 올바른 상태로 복원됩니다.',
   com_nav_setting_general: '일반',
   com_nav_setting_data: '데이터 제어',
   /* The following are AI Translated */
+  com_assistants_file_search: '파일 검색',
+  com_assistants_file_search_info:
+    '파일 검색을 위한 벡터 저장소 연결은 아직 지원되지 않습니다. Provider Playground에서 연결하거나 스레드 기반으로 메시지에 파일을 첨부하여 파일 검색을 할 수 있습니다.',
+  com_assistants_non_retrieval_model:
+    '이 모델에서는 파일 검색 기능을 사용할 수 없습니다. 다른 모델을 선택하세요.',
+  com_ui_attach_error_openai: '어시스턴트 파일을 다른 엔드포인트에 첨부할 수 없습니다.',
+  com_ui_attach_warn_endpoint: '호환되는 도구가 없으면 비어시스턴트 파일이 무시될 수 있습니다.',
+  com_ui_assistant_deleted: '어시스턴트가 성공적으로 삭제되었습니다',
+  com_ui_assistant_delete_error: '어시스턴트 삭제 중 오류가 발생했습니다.',
+  com_ui_copied: '복사됨',
+  com_ui_copy_code: '코드 복사',
+  com_nav_source_chat: '소스 채팅 보기',
   com_ui_date_today: '오늘',
   com_ui_date_yesterday: '어제',
   com_ui_date_previous_7_days: '지난 7일',
@@ -295,6 +345,7 @@ export default {
   com_sidepanel_hide_panel: '패널 숨기기',
   com_sidepanel_attach_files: '파일 첨부',
   com_sidepanel_manage_files: '파일 관리',
+  com_sidepanel_conversation_tags: '북마크',
   com_assistants_capabilities: '기능',
   com_assistants_knowledge: '지식',
   com_assistants_knowledge_info:
@@ -422,7 +473,6 @@ export default {
   com_auth_error_login_server: '내부 서버 오류가 발생했습니다. 잠시 기다렸다가 다시 시도해 주세요.',
   com_auth_back_to_login: '로그인 화면으로 돌아가기',
   com_endpoint_message: '메시지',
-  com_endpoint_messages: '메시지',
   com_endpoint_message_not_appendable: '메시지를 수정하거나 다시 생성하세요.',
   com_endpoint_context_tokens: '최대 컨텍스트 토큰 수',
   com_endpoint_context_info:
@@ -506,6 +556,7 @@ export default {
   com_nav_my_files: '내 파일',
   com_nav_enter_to_send: '엔터키를 눌러 메시지 보내기',
   com_nav_user_name_display: '메시지에서 사용자 이름 표시',
+  com_nav_save_drafts: '초안을 로컬에 저장',
   com_nav_show_code: '코드 인터프리터 사용 시 항상 코드 표시',
   com_nav_setting_beta: '베타 기능',
   com_nav_setting_account: '계정',
@@ -729,6 +780,62 @@ export const comparisons = {
     english: 'chats',
     translated: '채팅',
   },
+  com_ui_share: {
+    english: 'Share',
+    translated: '공유하기',
+  },
+  com_ui_copy_link: {
+    english: 'Copy link',
+    translated: '링크 복사',
+  },
+  com_ui_update_link: {
+    english: 'Update link',
+    translated: '링크 업데이트',
+  },
+  com_ui_create_link: {
+    english: 'Create link',
+    translated: '링크 만들기',
+  },
+  com_ui_share_link_to_chat: {
+    english: 'Share link to chat',
+    translated: '채팅으로 링크 공유하기',
+  },
+  com_ui_share_retrieve_error: {
+    english: 'There was an error deleting the shared link.',
+    translated: '공유 링크를 삭제하는 중에 오류가 발생했습니다.',
+  },
+  com_ui_share_delete_error: {
+    english: 'There was an error deleting the shared link.',
+    translated: '공유 링크를 삭제하는 중에 오류가 발생했습니다.',
+  },
+  com_ui_share_error: {
+    english: 'There was an error sharing the chat link',
+    translated: '채팅 링크를 공유하는 동안 오류가 발생했습니다',
+  },
+  com_ui_share_create_message: {
+    english: 'Your name and any messages you add after sharing stay private.',
+    translated: '이름과 공유 후에 추가하는 메시지는 비공개로 유지됩니다.',
+  },
+  com_ui_share_created_message: {
+    english:
+      'A shared link to your chat has been created. Manage previously shared chats at any time via Settings.',
+    translated:
+      '귀하의 채팅에 대한 공유 링크가 생성되었습니다. 설정을 통해 언제든지 이전에 공유한 채팅을 관리할 수 있습니다.',
+  },
+  com_ui_share_update_message: {
+    english: 'Your name, custom instructions, and any messages you add after sharing stay private.',
+    translated: '이름, 사용자 지정 지침 및 공유 후 추가하는 메시지는 비공개로 유지됩니다.',
+  },
+  com_ui_share_updated_message: {
+    english:
+      'A shared link to your chat has been updated. Manage previously shared chats at any time via Settings.',
+    translated:
+      '귀하의 채팅에 대한 공유 링크가 업데이트되었습니다. 설정을 통해 언제든지 이전에 공유한 채팅을 관리할 수 있습니다.',
+  },
+  com_ui_shared_link_not_found: {
+    english: 'Shared link not found',
+    translated: '공유 링크를 찾을 수 없습니다',
+  },
   com_ui_delete: {
     english: 'Delete',
     translated: '삭제',
@@ -737,7 +844,7 @@ export const comparisons = {
     english: 'Delete chat?',
     translated: '채팅을 삭제하시겠습니까?',
   },
-  com_ui_delete_conversation_confirm: {
+  com_ui_delete_confirm: {
     english: 'This will delete',
     translated: '이 채팅이 삭제됩니다',
   },
@@ -764,6 +871,62 @@ export const comparisons = {
   com_ui_more_options: {
     english: 'More',
     translated: '더 보기',
+  },
+  com_ui_bookmarks: {
+    english: 'Bookmarks',
+    translated: '북마크',
+  },
+  com_ui_bookmarks_rebuild: {
+    english: 'Rebuild',
+    translated: '재구축',
+  },
+  com_ui_bookmarks_new: {
+    english: 'New Bookmark',
+    translated: '새 북마크',
+  },
+  com_ui_bookmark_delete_confirm: {
+    english: 'Are you sure you want to delete this bookmark?',
+    translated: '이 북마크를 삭제하시겠습니까?',
+  },
+  com_ui_bookmarks_title: {
+    english: 'Title',
+    translated: '제목',
+  },
+  com_ui_bookmarks_count: {
+    english: 'Count',
+    translated: '개수',
+  },
+  com_ui_bookmarks_description: {
+    english: 'Description',
+    translated: '설명',
+  },
+  com_ui_bookmarks_create_success: {
+    english: 'Bookmark created successfully',
+    translated: '북마크가 성공적으로 생성되었습니다',
+  },
+  com_ui_bookmarks_update_success: {
+    english: 'Bookmark updated successfully',
+    translated: '북마크가 성공적으로 업데이트되었습니다',
+  },
+  com_ui_bookmarks_delete_success: {
+    english: 'Bookmark deleted successfully',
+    translated: '북마크가 성공적으로 삭제되었습니다',
+  },
+  com_ui_bookmarks_create_error: {
+    english: 'There was an error creating the bookmark',
+    translated: '북마크 생성 중 오류가 발생했습니다',
+  },
+  com_ui_bookmarks_update_error: {
+    english: 'There was an error updating the bookmark',
+    translated: '북마 업데이트 중 오류가 발생했습니다',
+  },
+  com_ui_bookmarks_delete_error: {
+    english: 'There was an error deleting the bookmark',
+    translated: '북마크 삭제 중 오류가 발생했습니다',
+  },
+  com_ui_bookmarks_add_to_conversation: {
+    english: 'Add to current conversation',
+    translated: '현재 대화에 추가',
   },
   com_auth_error_login: {
     english:
@@ -1397,6 +1560,30 @@ export const comparisons = {
     english: 'Export conversation',
     translated: '대화 내보내기',
   },
+  com_nav_export: {
+    english: 'Export',
+    translated: '내보내기',
+  },
+  com_nav_shared_links: {
+    english: 'Shared links',
+    translated: '공유 링크',
+  },
+  com_nav_shared_links_manage: {
+    english: 'Manage',
+    translated: '관리',
+  },
+  com_nav_shared_links_empty: {
+    english: 'You have no shared links.',
+    translated: '공유 링크가 없습니다.',
+  },
+  com_nav_shared_links_name: {
+    english: 'Name',
+    translated: '이름',
+  },
+  com_nav_shared_links_date_shared: {
+    english: 'Date shared',
+    translated: '공유 날짜',
+  },
   com_nav_theme: {
     english: 'Theme',
     translated: '테마',
@@ -1489,6 +1676,12 @@ export const comparisons = {
     english: 'Search messages',
     translated: '메시지 검색',
   },
+  com_nav_info_bookmarks_rebuild: {
+    english:
+      'If the bookmark count is incorrect, please rebuild the bookmark information. The bookmark count will be recalculated and the data will be restored to its correct state.',
+    translated:
+      '북마크 수가 정확하지 않은 경우 북마크 정보를 재구축하십시오. 북마크 수가 다시 계산되고 데이터가 올바른 상태로 복원됩니다.',
+  },
   com_nav_setting_general: {
     english: 'General',
     translated: '일반',
@@ -1496,6 +1689,48 @@ export const comparisons = {
   com_nav_setting_data: {
     english: 'Data controls',
     translated: '데이터 제어',
+  },
+  com_assistants_file_search: {
+    english: 'File Search',
+    translated: '파일 검색',
+  },
+  com_assistants_file_search_info: {
+    english:
+      'Attaching vector stores for File Search is not yet supported. You can attach them from the Provider Playground or attach files to messages for file search on a thread basis.',
+    translated:
+      '파일 검색을 위한 벡터 저장소 연결은 아직 지원되지 않습니다. Provider Playground에서 연결하거나 스레드 기반으로 메시지에 파일을 첨부하여 파일 검색을 할 수 있습니다.',
+  },
+  com_assistants_non_retrieval_model: {
+    english: 'File search is not enabled on this model. Please select another model.',
+    translated: '이 모델에서는 파일 검색 기능을 사용할 수 없습니다. 다른 모델을 선택하세요.',
+  },
+  com_ui_attach_error_openai: {
+    english: 'Cannot attach Assistant files to other endpoints',
+    translated: '어시스턴트 파일을 다른 엔드포인트에 첨부할 수 없습니다.',
+  },
+  com_ui_attach_warn_endpoint: {
+    english: 'Non-Assistant files may be ignored without a compatible tool',
+    translated: '호환되는 도구가 없으면 비어시스턴트 파일이 무시될 수 있습니다.',
+  },
+  com_ui_assistant_deleted: {
+    english: 'Successfully deleted assistant',
+    translated: '어시스턴트가 성공적으로 삭제되었습니다',
+  },
+  com_ui_assistant_delete_error: {
+    english: 'There was an error deleting the assistant',
+    translated: '어시스턴트 삭제 중 오류가 발생했습니다.',
+  },
+  com_ui_copied: {
+    english: 'Copied!',
+    translated: '복사됨',
+  },
+  com_ui_copy_code: {
+    english: 'Copy code',
+    translated: '코드 복사',
+  },
+  com_nav_source_chat: {
+    english: 'View source chat',
+    translated: '소스 채팅 보기',
   },
   com_ui_date_today: {
     english: 'Today',
@@ -1626,6 +1861,10 @@ export const comparisons = {
   com_sidepanel_manage_files: {
     english: 'Manage Files',
     translated: '파일 관리',
+  },
+  com_sidepanel_conversation_tags: {
+    english: 'Bookmarks',
+    translated: '북마크',
   },
   com_assistants_capabilities: {
     english: 'Capabilities',
@@ -2101,10 +2340,6 @@ export const comparisons = {
     english: 'Message',
     translated: '메시지',
   },
-  com_endpoint_messages: {
-    english: 'Messages',
-    translated: '메시지',
-  },
   com_endpoint_message_not_appendable: {
     english: 'Edit your message or Regenerate.',
     translated: '메시지를 수정하거나 다시 생성하세요.',
@@ -2407,6 +2642,10 @@ export const comparisons = {
   com_nav_user_name_display: {
     english: 'Display username in messages',
     translated: '메시지에서 사용자 이름 표시',
+  },
+  com_nav_save_drafts: {
+    english: 'Save drafts locally',
+    translated: '초안을 로컬에 저장',
   },
   com_nav_show_code: {
     english: 'Always show code when using code interpreter',

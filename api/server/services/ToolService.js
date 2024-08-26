@@ -73,10 +73,6 @@ function loadAndFormatTools({ directory, adminFilter = [], adminIncluded = [] })
       continue;
     }
 
-    if (included.size > 0 && !included.has(file)) {
-      continue;
-    }
-
     let toolInstance = null;
     try {
       toolInstance = new ToolClass({ override: true });
@@ -89,6 +85,14 @@ function loadAndFormatTools({ directory, adminFilter = [], adminIncluded = [] })
     }
 
     if (!toolInstance) {
+      continue;
+    }
+
+    if (filter.has(toolInstance.name) && included.size === 0) {
+      continue;
+    }
+
+    if (included.size > 0 && !included.has(file) && !included.has(toolInstance.name)) {
       continue;
     }
 
@@ -331,7 +335,7 @@ async function processRequiredActions(client, requiredActions) {
         continue;
       }
 
-      tool = createActionTool({ action: actionSet, requestBuilder });
+      tool = await createActionTool({ action: actionSet, requestBuilder });
       isActionTool = !!tool;
       ActionToolMap[currentAction.tool] = tool;
     }
@@ -340,29 +344,26 @@ async function processRequiredActions(client, requiredActions) {
       currentAction.toolInput = currentAction.toolInput.input;
     }
 
-    try {
-      const promise = tool
-        ._call(currentAction.toolInput)
-        .then(handleToolOutput)
-        .catch((error) => {
-          logger.error(`Error processing tool ${currentAction.tool}`, error);
-          return {
-            tool_call_id: currentAction.toolCallId,
-            output: `Error processing tool ${currentAction.tool}: ${redactMessage(error.message)}`,
-          };
-        });
-      promises.push(promise);
-    } catch (error) {
+    const handleToolError = (error) => {
       logger.error(
         `tool_call_id: ${currentAction.toolCallId} | Error processing tool ${currentAction.tool}`,
         error,
       );
-      promises.push(
-        Promise.resolve({
-          tool_call_id: currentAction.toolCallId,
-          error: error.message,
-        }),
-      );
+      return {
+        tool_call_id: currentAction.toolCallId,
+        output: `Error processing tool ${currentAction.tool}: ${redactMessage(error.message, 256)}`,
+      };
+    };
+
+    try {
+      const promise = tool
+        ._call(currentAction.toolInput)
+        .then(handleToolOutput)
+        .catch(handleToolError);
+      promises.push(promise);
+    } catch (error) {
+      const toolOutputError = handleToolError(error);
+      promises.push(Promise.resolve(toolOutputError));
     }
   }
 
