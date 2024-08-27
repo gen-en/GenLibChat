@@ -1,19 +1,17 @@
 import React, { memo, useMemo } from 'react';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import supersub from 'remark-supersub';
 import rehypeKatex from 'rehype-katex';
 import { useRecoilValue } from 'recoil';
 import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import type { TMessage } from 'librechat-data-provider';
 import type { PluggableList } from 'unified';
-import { cn, langSubset, validateIframe, processLaTeX } from '~/utils';
+import rehypeHighlight from 'rehype-highlight';
+import { langSubset, preprocessLaTeX, handleDoubleClick } from '~/utils';
 import CodeBlock from '~/components/Messages/Content/CodeBlock';
-import { useChatContext, useToastContext } from '~/Providers';
 import { useFileDownload } from '~/data-provider';
 import useLocalize from '~/hooks/useLocalize';
+import { useToastContext } from '~/Providers';
 import store from '~/store';
 
 type TCodeProps = {
@@ -22,20 +20,18 @@ type TCodeProps = {
   children: React.ReactNode;
 };
 
-type TContentProps = {
-  content: string;
-  message: TMessage;
-  showCursor?: boolean;
-};
-
-export const code = memo(({ inline, className, children }: TCodeProps) => {
-  const match = /language-(\w+)/.exec(className || '');
+export const code: React.ElementType = memo(({ inline, className, children }: TCodeProps) => {
+  const match = /language-(\w+)/.exec(className ?? '');
   const lang = match && match[1];
 
   if (inline) {
-    return <code className={className}>{children}</code>;
+    return (
+      <code onDoubleClick={handleDoubleClick} className={className}>
+        {children}
+      </code>
+    );
   } else {
-    return <CodeBlock lang={lang || 'text'} codeChildren={children} />;
+    return <CodeBlock lang={lang ?? 'text'} codeChildren={children} />;
   }
 });
 
@@ -44,21 +40,23 @@ export const a = memo(({ href, children }: { href: string; children: React.React
   const { showToast } = useToastContext();
   const localize = useLocalize();
 
-  const { filepath, filename } = useMemo(() => {
+  const { file_id, filename, filepath } = useMemo(() => {
     const pattern = new RegExp(`(?:files|outputs)/${user?.id}/([^\\s]+)`);
     const match = href.match(pattern);
     if (match && match[0]) {
       const path = match[0];
-      const name = path.split('/').pop();
-      return { filepath: path, filename: name };
+      const parts = path.split('/');
+      const name = parts.pop();
+      const file_id = parts.pop();
+      return { file_id, filename: name, filepath: path };
     }
-    return { filepath: '', filename: '' };
+    return { file_id: '', filename: '', filepath: '' };
   }, [user?.id, href]);
 
-  const { refetch: downloadFile } = useFileDownload(user?.id ?? '', filepath);
+  const { refetch: downloadFile } = useFileDownload(user?.id ?? '', file_id);
   const props: { target?: string; onClick?: React.MouseEventHandler } = { target: '_new' };
 
-  if (!filepath || !filename) {
+  if (!file_id || !filename) {
     return (
       <a href={href} {...props}>
         {children}
@@ -108,19 +106,23 @@ export const p = memo(({ children }: { children: React.ReactNode }) => {
 });
 
 const cursor = ' ';
-const Markdown = memo(({ content, message, showCursor }: TContentProps) => {
-  const { isSubmitting, latestMessage } = useChatContext();
+
+type TContentProps = {
+  content: string;
+  isEdited?: boolean;
+  showCursor?: boolean;
+  isLatestMessage: boolean;
+};
+
+const Markdown = memo(({ content = '', isEdited, showCursor, isLatestMessage }: TContentProps) => {
   const LaTeXParsing = useRecoilValue<boolean>(store.LaTeXParsing);
 
   const isInitializing = content === '';
 
-  const { isEdited, messageId } = message ?? {};
-  const isLatestMessage = messageId === latestMessage?.messageId;
-
   let currentContent = content;
   if (!isInitializing) {
-    currentContent = currentContent?.replace('z-index: 1;', '') ?? '';
-    currentContent = LaTeXParsing ? processLaTeX(currentContent) : currentContent;
+    currentContent = currentContent.replace('z-index: 1;', '') || '';
+    currentContent = LaTeXParsing ? preprocessLaTeX(currentContent) : currentContent;
   }
 
   const rehypePlugins: PluggableList = [
@@ -133,26 +135,19 @@ const Markdown = memo(({ content, message, showCursor }: TContentProps) => {
         subset: langSubset,
       },
     ],
-    [rehypeRaw],
   ];
 
   if (isInitializing) {
-    rehypePlugins.pop();
     return (
       <div className="absolute">
         <p className="relative">
-          <span className={cn(isSubmitting ? 'result-thinking' : '')} />
+          <span className={isLatestMessage ? 'result-thinking' : ''} />
         </p>
       </div>
     );
   }
 
-  let isValidIframe: string | boolean | null = false;
-  if (!isEdited) {
-    isValidIframe = validateIframe(currentContent);
-  }
-
-  if (isEdited || ((!isInitializing || !isLatestMessage) && !isValidIframe)) {
+  if (isEdited === true || !isLatestMessage) {
     rehypePlugins.pop();
   }
 
@@ -171,9 +166,7 @@ const Markdown = memo(({ content, message, showCursor }: TContentProps) => {
         }
       }
     >
-      {isLatestMessage && isSubmitting && !isInitializing && showCursor
-        ? currentContent + cursor
-        : currentContent}
+      {isLatestMessage && showCursor === true ? currentContent + cursor : currentContent}
     </ReactMarkdown>
   );
 });
