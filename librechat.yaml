@@ -1,4 +1,4 @@
-version: 1.0.5
+version: 1.1.5
 cache: true
 fileStrategy: "firebase"
 fileConfig:
@@ -31,7 +31,7 @@ fileConfig:
 registration:
   socialLogins: ['github', 'google', 'discord']
   allowedDomains:
-   - "generis.ai"
+    - "generis.ai"
 
 rateLimits:
   fileUploads:
