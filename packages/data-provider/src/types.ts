@@ -8,6 +8,7 @@ import type {
   TConversation,
   EModelEndpoint,
   TConversationTag,
+  TBanner,
 } from './schemas';
 import type { TSpecsConfig } from './models';
 export type TOpenAIMessage = OpenAI.Chat.ChatCompletionMessageParam;
@@ -51,6 +52,7 @@ export type TPayload = Partial<TMessage> &
   };
 
 export type TSubmission = {
+  artifacts?: string;
   plugin?: TResPlugin;
   plugins?: TResPlugin[];
   userMessage: TMessage;
@@ -70,13 +72,13 @@ export type TPluginAction = {
   pluginKey: string;
   action: 'install' | 'uninstall';
   auth?: unknown;
-  isAssistantTool?: boolean;
+  isEntityTool?: boolean;
 };
 
 export type GroupedConversations = [key: string, TConversation[]][];
 
 export type TUpdateUserPlugins = {
-  isAssistantTool?: boolean;
+  isEntityTool?: boolean;
   pluginKey: string;
   action: string;
   auth?: unknown;
@@ -90,7 +92,7 @@ export type TCategory = {
 
 export type TError = {
   message: string;
-  code?: number;
+  code?: number | string;
   response?: {
     data?: {
       message?: string;
@@ -126,6 +128,13 @@ export type TUpdateMessageRequest = {
   text: string;
 };
 
+export type TUpdateMessageContent = {
+  conversationId: string;
+  messageId: string;
+  index: number;
+  text: string;
+};
+
 export type TUpdateUserKeyRequest = {
   name: string;
   value: string;
@@ -142,6 +151,7 @@ export type TUpdateConversationResponse = TConversation;
 export type TDeleteConversationRequest = {
   conversationId?: string;
   thread_id?: string;
+  endpoint?: string;
   source?: string;
 };
 
@@ -219,6 +229,7 @@ export type TConfig = {
   type?: EModelEndpoint;
   azure?: boolean;
   availableTools?: [];
+  availableRegions?: string[];
   plugins?: Record<string, string>;
   name?: string;
   iconURL?: string;
@@ -298,12 +309,18 @@ export type TInterfaceConfig = {
   termsOfService?: {
     externalUrl?: string;
     openNewTab?: boolean;
+    modalAcceptance?: boolean;
+    modalTitle?: string;
+    modalContent?: string;
   };
   endpointsMenu: boolean;
   modelSelect: boolean;
   parameters: boolean;
   sidePanel: boolean;
   presets: boolean;
+  multiConvo: boolean;
+  bookmarks: boolean;
+  prompts: boolean;
 };
 
 export type TStartupConfig = {
@@ -494,3 +511,13 @@ export type TGetRandomPromptsRequest = {
 };
 
 export type TCustomConfigSpeechResponse = { [key: string]: string };
+
+export type TUserTermsResponse = {
+  termsAccepted: boolean;
+};
+
+export type TAcceptTermsResponse = {
+  success: boolean;
+};
+
+export type TBannerResponse = TBanner | null;

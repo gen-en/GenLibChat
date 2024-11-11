@@ -1,6 +1,3 @@
-<<<<<<<< HEAD:docker-compose.override.yml
-# Please consult our docs for more info: https://docs.librechat.ai/install/configuration/docker_override.html
-========
 version: '3.4'
 
 # Please consult our docs for more info: https://www.librechat.ai/docs/configuration/docker_override

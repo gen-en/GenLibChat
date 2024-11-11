@@ -1,7 +1,5 @@
 import { type FC } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useLocation } from 'react-router-dom';
-import { TConversation } from 'librechat-data-provider';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { BookmarkFilledIcon, BookmarkIcon } from '@radix-ui/react-icons';
 import { BookmarkContext } from '~/Providers/BookmarkContext';
@@ -14,23 +12,13 @@ import store from '~/store';
 type BookmarkNavProps = {
   tags: string[];
   setTags: (tags: string[]) => void;
+  isSmallScreen: boolean;
 };
 
-const BookmarkNav: FC<BookmarkNavProps> = ({ tags, setTags }: BookmarkNavProps) => {
+const BookmarkNav: FC<BookmarkNavProps> = ({ tags, setTags, isSmallScreen }: BookmarkNavProps) => {
   const localize = useLocalize();
-  const location = useLocation();
-
   const { data } = useGetConversationTags();
-
-  const activeConvo = useRecoilValue(store.conversationByIndex(0));
-  const globalConvo = useRecoilValue(store.conversation) ?? ({} as TConversation);
-
-  let conversation: TConversation | null | undefined;
-  if (location.state?.from?.pathname.includes('/chat')) {
-    conversation = globalConvo;
-  } else {
-    conversation = activeConvo;
-  }
+  const conversation = useRecoilValue(store.conversationByIndex(0));
 
   return (
     <Menu as="div" className="group relative">
@@ -40,6 +28,7 @@ const BookmarkNav: FC<BookmarkNavProps> = ({ tags, setTags }: BookmarkNavProps) 
             className={cn(
               'mt-text-sm flex h-10 w-full items-center gap-2 rounded-lg p-2 text-sm transition-colors duration-200 hover:bg-surface-hover',
               open ? 'bg-surface-hover' : '',
+              isSmallScreen ? 'h-12' : '',
             )}
             data-testid="bookmark-menu"
           >
