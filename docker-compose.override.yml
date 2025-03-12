@@ -38,9 +38,9 @@ services:
 #   api:
 #     image: ghcr.io/danny-avila/librechat-dev-api:latest
 
-# # BUILD FROM LATEST API IMAGE (NUMBERED RELEASE)
-#   api:
-#     image: ghcr.io/danny-avila/librechat-api:latest
+# BUILD FROM LATEST API IMAGE (NUMBERED RELEASE)
+   api:
+     image: ghcr.io/danny-avila/librechat-dev:latest
 
 # # ADD MONGO-EXPRESS
 #   mongo-express:
