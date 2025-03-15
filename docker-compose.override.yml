@@ -1,7 +1,4 @@
-version: '3.4'
-
 # Please consult our docs for more info: https://www.librechat.ai/docs/configuration/docker_override
->>>>>>>> ec81637b0a9c274c4eb167a5337ddf29b4210241:docker-compose.override.yml.example
 
 # TO USE THIS FILE, FIRST UNCOMMENT THE LINE ('services:')
 
@@ -12,10 +9,11 @@ version: '3.4'
 # WARNING: YOU CAN ONLY SPECIFY EVERY SERVICE NAME ONCE (api, mongodb, meilisearch, ...)
 # IF YOU WANT TO OVERRIDE MULTIPLE SETTINGS IN ONE SERVICE YOU WILL HAVE TO EDIT ACCORDINGLY
 
+# EXAMPLE: if you want to use the config file and the latest numbered release docker image the result will be:
 
 services:
 
-# # USE LIBRECHAT CONFIG FILE
+# local build
   api:
     image: librechat
     build:
@@ -25,6 +23,12 @@ services:
     - type: bind
       source: ./librechat.yaml
       target: /app/librechat.yaml
+    environment:
+      - MONGO_URI=${MONGO_URI}
+  mongodb:
+    image: tianon/true
+    command: ''
+    entrypoint: ''
 
 # # BUILD FROM LATEST IMAGE
 #   api:
@@ -39,8 +43,6 @@ services:
 #     image: ghcr.io/danny-avila/librechat-dev-api:latest
 
 # BUILD FROM LATEST API IMAGE (NUMBERED RELEASE)
-   api:
-     image: ghcr.io/danny-avila/librechat-dev:latest
 
 # # ADD MONGO-EXPRESS
 #   mongo-express:
@@ -61,14 +63,7 @@ services:
 #     image: mongo:4.4.18
 
 # DISABLE THE MONGODB CONTAINER - YOU NEED TO SET AN ALTERNATIVE MONGODB URI IN THE .ENV FILE
-  
-    environment:
-      - MONGO_URI=${MONGO_URI}
-  mongodb:
-    image: tianon/true
-    command: ''
-    entrypoint: ''
-    
+
 # # EXPOSE MONGODB PORTS - USE CAREFULLY, THIS MAKES YOUR DATABASE VULNERABLE TO ATTACKS
 #   mongodb:
 #     ports:
